@@ -1,10 +1,11 @@
 from flask import Flask
 import pymysql
+from flask_restful import Api,Resource
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1qaz!QAZ@129.211.167.92/SQLAlchemy'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://python14:python14@stuq.ceshiren.com:23306/python14'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1qaz!QAZ@129.211.167.92/SQLAlchemy'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://python14:python14@stuq.ceshiren.com:23306/python14'
 db = SQLAlchemy(app)
 
 
