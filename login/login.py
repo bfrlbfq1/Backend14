@@ -7,6 +7,7 @@ from flask_jwt_extended import (
 )
 from db import database
 from db.seveniruby_user11 import SevenirubyUser11
+from jenkins.apijenkins import TaskApi
 
 #
 # app=Flask(__name__)
@@ -46,5 +47,6 @@ class Login(Resource):
 
 api.add_resource(Login,'/login')
 api.add_resource(SevenirubyUser11,'/db')
+api.add_resource(TaskApi,'/task')
 if __name__ == '__main__':
     app.run(debug=True)
