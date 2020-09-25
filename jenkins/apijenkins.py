@@ -16,8 +16,9 @@ class TaskApi(Resource):
     def post(self):
         # todo: 用例获取
         testcases=request.json.get('testcases',None)
+        testcaseJob=request.json.get('job',None)
         # todo: 调度jenkins，驱动job执行
-        jenkins['testcase'].invoke(
+        jenkins[f'{testcaseJob}'].invoke(
             securitytoken='testcases',
             build_params={
                 'testcases': testcases

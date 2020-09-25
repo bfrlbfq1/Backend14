@@ -2,7 +2,7 @@ from db.database import db, User
 
 
 class SevenirubyUser11:
-    def get(self):
+    def get_users(self):
         r = []
         for t in User.query.all():
             res = {}
@@ -14,28 +14,35 @@ class SevenirubyUser11:
         return r
         # return {'hello':'word'}
 
-    def Post(self, username, password, email):
-        try:
-            print(password)
-            t = User(
-                # username=request.json['username'],
-                # password=request.json['password'],
-                # email=request.json['email'],
-                username=username,
-                password=password,
-                email=email,
+    def add_users(self, username, password,email):
+        user = User.query.filter_by(username=username).first()
+        if user:
+            return {
+                'errcode': 1,
+                'errmsg': '数据存在'
+            }
+        else:
+            try:
+                print(password)
+                t = User(
+                    # username=request.json['username'],
+                    # password=request.json['password'],
+                    # email=request.json['email'],
+                    username=username,
+                    password=password,
+                    email=email,
 
-            )
-            print(email)
-        except Exception as e:
-            print(e)
-        db.session.add(t)
-        db.session.commit(t)
+                )
+                # print(email)
+            except Exception as e:
+                print(e)
+            db.session.add(t)
+            db.session.commit()
 
-        return {"msk": 'ok'}
+            return {"msk": 'ok'}
 
-    def put(self, username, password, email):
-        user = User.query.filter_by(username=username, password=password, email=email).first()
+    def put_users(self, username, password, email):
+        user = User.query.filter_by(username=username).first()
         # user = database.User.query.filter_by(username=username, password=password).first()
         if user:
             if password is None and email is not None:
@@ -58,8 +65,10 @@ class SevenirubyUser11:
             'errmsg': 'ok'
         }
 
-    def delete(self, username, password, email):
-        user = User.query.filter_by(username=username, password=password, email=email).first()
+    def delete_users(self, username, password, email):
+        print(username, password, email)
+        user = User.query.filter_by(username=username).first()
+        print(user)
         if user:
             db.session.delete(user)
             db.session.commit()

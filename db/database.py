@@ -6,7 +6,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1qaz!QAZ@129.211.1
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://python14:python14@stuq.ceshiren.com:23306/python14'
 db = SQLAlchemy(app)
 
-
+#用户
 class User(db.Model):
     __tablename__ = 'seveniruby_user11'
     id = db.Column(db.Integer, primary_key=True)
@@ -21,3 +21,35 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+# 用例
+class TestCase(db.Model):
+    __tablename__ = 'seveniruby_testcase'
+    id = db.Column(db.Integer, primary_key=True)
+    casename  = db.Column(db.String(80), unique=True, nullable=True)
+    description  = db.Column(db.String(1024), unique=False, nullable=False)
+    data  = db.Column(db.String(1024), unique=False, nullable=False)
+
+    def __init__(self, casename, description, data):
+        self.casename = casename
+        self.description = description
+        self.data = data
+
+    def __repr__(self):
+        return '<User %r>' % self.casename
+
+#报告
+class TestReport(db.Model):
+    __tablename__ = 'seveniruby_testreport'
+    id = db.Column(db.Integer, primary_key=True)
+    reportname  = db.Column(db.String(80), unique=True, nullable=True)
+    description  = db.Column(db.String(1024), unique=False, nullable=False)
+    data  = db.Column(db.String(1024), unique=False, nullable=False)
+
+    def __init__(self, reportname, description, data):
+        self.reportname = reportname
+        self.description = description
+        self.data = data
+
+    def __repr__(self):
+        return '<User %r>' % self.reportname

@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from flask_restful import Api, Resource
+from flask_restful import Resource
 from db import app
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -12,7 +12,7 @@ from jenkins.apijenkins import TaskApi
 #
 # app=Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
-api = Api(app)
+# api = Api(app)
 jwt = JWTManager(app)
 
 
@@ -44,11 +44,12 @@ class Login(Resource):
     # 注册
     def put(self):
 
-        self.username = request.json.get('username', None)
-        self.password = request.json.get('password', None)
-        self.email = request.json.get('email', None)
-        print(self.username, self.password, self.email)
-        register_user = SevenirubyUser11.Post(self.username, self.password, self.email)
+        username = request.json.get('username', None)
+        password = request.json.get('password', None)
+        email = request.json.get('email', None)
+
+        seven = SevenirubyUser11()
+        register_user = seven.add_users(username, password, email)
         if register_user['msk'] == 'ok':
             return jsonify(
                 errcode=0,
@@ -60,15 +61,11 @@ class Login(Resource):
         username = request.json.get('username', None)
         password = request.json.get('password', None)
         email = request.json.get('email', None)
-        delete_user = SevenirubyUser11.delete(username, password, email)
+
+        seven = SevenirubyUser11()
+        delete_user = seven.delete_users(username, password, email)
         if delete_user['errcode'] == 0:
             return delete_user
         else:
             return delete_user
 
-
-api.add_resource(Login, '/login')
-# api.add_resource(SevenirubyUser11,'/db')
-api.add_resource(TaskApi, '/task')
-if __name__ == '__main__':
-    app.run(debug=True)
