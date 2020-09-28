@@ -40,6 +40,7 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
+                    v-model="username"
                     label="Login"
                     name="login"
                     prepend-icon="mdi-account"
@@ -47,6 +48,7 @@
                   ></v-text-field>
 
                   <v-text-field
+                    v-model="password"
                     id="password"
                     label="Password"
                     name="password"
@@ -57,7 +59,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary" @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -68,9 +70,34 @@
 </template>
 
 <script>
+import http from "@/http"
   export default {
+    name: "login",
     props: {
       source: String,
     },
+    methods:{
+        login:function(){
+            console.log(this);
+            console.log(this.username);
+            console.log(this.password);
+            http
+                .post("/login",{
+                    username:this.username,
+                    password:this.password
+                })
+                .then((res) => {
+                    console.log(res);
+                    if(res.data.errcode==0){
+                        localStorage.setItem("token",res.data.access_token);
+                        console.log(localStorage.getItem("token"));
+                        this.$router.push("index");
+
+                    }else{
+                        window.alert(res.data.errmsg)
+                    }
+                })
+        }
+    }
   }
 </script>

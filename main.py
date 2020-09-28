@@ -14,8 +14,10 @@ from flask_restful import Api
 from db import app
 from login.report import TestReportApi
 from login.testcaseApi import TestCaseApi
+from flask_cors import CORS
 from flask_restful import Resource
 api = Api(app)
+CORS(app)
 
 api.add_resource(Login, '/login')
 # api.add_resource(SevenirubyUser11,'/db')
