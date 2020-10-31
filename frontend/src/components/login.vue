@@ -90,8 +90,9 @@ import http from "@/http"
                     console.log(res);
                     if(res.data.errcode==0){
                         localStorage.setItem("token",res.data.access_token);
+                        localStorage.setItem("email",res.data.mail);
                         console.log(localStorage.getItem("token"));
-                        this.$router.push("index");
+                        this.$router.push("DashBoard");
 
                     }else{
                         window.alert(res.data.errmsg)

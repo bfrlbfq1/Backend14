@@ -15,13 +15,13 @@ class TaskApi(Resource):
         pass
     def post(self):
         # todo: 用例获取
-        testcases=request.json.get('testcases',None)
+        testcases=request.json.get('testcases','11e25651ef39f57100d35173b9e85edb49')
         testcaseJob=request.json.get('job',None)
         # todo: 调度jenkins，驱动job执行
-        jenkins[f'{testcaseJob}'].invoke(
-            securitytoken='testcases',
+        jenkins['testcase'].invoke(
+            securitytoken=testcases,
             build_params={
-                'testcases': testcases
+                'testcases': testcaseJob
             }
         )
         return {

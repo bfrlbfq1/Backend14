@@ -20,7 +20,8 @@ class TestCaseApi(Resource):
     # 无需验证
     @jwt_required
     def get(self):
-        return {'hello': 'word'}
+        seveniruby_testcase=SevenirubyTestcase()
+        return seveniruby_testcase.get_testcase()
 
     # 新增测试用例
     def post(self):

@@ -12,6 +12,7 @@ from jenkins.apijenkins import TaskApi
 #
 # app=Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 36000
 # api = Api(app)
 jwt = JWTManager(app)
 
@@ -32,6 +33,7 @@ class Login(Resource):
                 errcode=0,
                 errmsg='ok',
                 username=user.username,
+                mail=user.email,
                 access_token=create_access_token(identity=username)
 
             )

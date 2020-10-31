@@ -15,6 +15,7 @@ from db import app
 from login.report import TestReportApi
 from login.testcaseApi import TestCaseApi
 from flask_cors import CORS
+from login.assertstatus import AssertStatus
 from flask_restful import Resource
 api = Api(app)
 CORS(app)
@@ -22,8 +23,9 @@ CORS(app)
 api.add_resource(Login, '/login')
 # api.add_resource(SevenirubyUser11,'/db')
 api.add_resource(TaskApi, '/task')
-api.add_resource(TestCaseApi,'/tesecase')
+api.add_resource(TestCaseApi,'/testcase')
 api.add_resource(TestReportApi,'/report')
+api.add_resource(AssertStatus,'/status')
 if __name__ == '__main__':
     app.run(debug=True)
 

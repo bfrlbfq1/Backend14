@@ -53,3 +53,16 @@ class TestReport(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.reportname
+# 相应状态
+class AssertStatus(db.Model):
+    __tablename__ = 'seveniruby_status'
+    id = db.Column(db.Integer, primary_key=True)
+    errmsg  = db.Column(db.String(80), unique=True, nullable=True)
+    errcode  = db.Column(db.String(1024), unique=False, nullable=False)
+
+    def __init__(self, errmsg, errcode):
+        self.errmsg = errmsg
+        self.errcode = errcode
+
+    def __repr__(self):
+        return '<AssertStatus %r>' % self.errmsg
